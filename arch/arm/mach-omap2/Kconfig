@@ -236,6 +236,14 @@ config OMAP3_SDRC_AC_TIMING
 	  wish to say no.  Selecting yes without understanding what is
 	  going on could result in system crashes;
 
+config KM_BBB_AM335X_EXP_BOARD_DTB
+	bool "Build DTB for KM BBB Expansion Board only"
+	depends on SOC_AM33XX
+	default n
+	help
+	  Enable this option to build only the DTB for KM BBB Expansion Board
+	  and skip other default AM33xx DTBs.
+
 endmenu
 
 endif
