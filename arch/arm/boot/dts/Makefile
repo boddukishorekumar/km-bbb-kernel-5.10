@@ -723,6 +723,9 @@ dtb-$(CONFIG_ARCH_NSPIRE) += \
 	nspire-cx.dtb \
 	nspire-tp.dtb \
 	nspire-clp.dtb
+ifeq ($(CONFIG_KM_BBB_AM335X_EXP_BOARD_DTB),y)
+dtb-$(CONFIG_SOC_AM33XX) := km-bbb-am335x.dtb
+else
 dtb-$(CONFIG_ARCH_OMAP2) += \
 	omap2420-h4.dtb \
 	omap2420-n800.dtb \
@@ -886,6 +889,7 @@ dtb-$(CONFIG_SOC_DRA7XX) += \
 	dra72-evm-revc.dtb \
 	dra71-evm.dtb \
 	dra76-evm.dtb
+endif
 dtb-$(CONFIG_ARCH_ORION5X) += \
 	orion5x-kuroboxpro.dtb \
 	orion5x-lacie-d2-network.dtb \
