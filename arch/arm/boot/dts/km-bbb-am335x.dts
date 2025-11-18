@@ -17,6 +17,38 @@
 		base_dtb = "km-bbb-am335x.dts";
 		base_dtb_timestamp = __TIMESTAMP__;
 	};
+
+	gpio_keys: km-bbb-switches {
+		compatible = "gpio-keys";
+		pinctrl-names = "default";
+		pinctrl-0 = <&km_gpio_switches>;
+		autorepeat;
+
+	        switch11 {
+			label = "wakeup";
+			linux,code = <143>;
+			/*linux,code = <KEY_WAKEUP>;*/
+			gpios = <&gpio0 11 GPIO_ACTIVE_HIGH>;
+			debounce-interval = <5>;
+			wakeup-source;
+                };
+
+		switch26 {
+			label = "volume-up";
+			linux,code = <115>;
+			/*linux,code = <KEY_VOLUMEUP>;*/
+			gpios = <&gpio0 26 GPIO_ACTIVE_LOW>;
+			debounce-interval = <5>;
+                };
+
+                switch27 {
+			label = "volume-down";
+			linux,code = <114>;
+			/*linux,code = <KEY_VOLUMEDOWN>;*/
+			gpios = <&gpio0 27 GPIO_ACTIVE_LOW>;
+			debounce-interval = <5>;
+		};
+	};
 };
 
 &cpu0_opp_table {
@@ -27,6 +59,17 @@
 	 */
 	oppnitro-1000000000 {
 		opp-supported-hw = <0x06 0x0100>;
+	};
+};
+
+/* For modifing this you need to refer BBB P8 & P9 HeaderTable.pdf */
+&am33xx_pinmux {
+	km_gpio_switches: pinmux_km_gpio_switches {
+                pinctrl-single,pins = <
+                        AM33XX_PADCONF(AM335X_PIN_LCD_DATA15, PIN_INPUT_PULLDOWN, MUX_MODE7)   /* P8_32 (GPIO0_11) USER_SW */
+                        AM33XX_PADCONF(AM335X_PIN_GPMC_AD10, PIN_INPUT_PULLUP, MUX_MODE7)      /* P8_14 (GPIO0_26) SW_UP */
+                        AM33XX_PADCONF(AM335X_PIN_GPMC_AD11, PIN_INPUT_PULLUP, MUX_MODE7)      /* P8_17 (GPIO0_27) SW_DOWN */
+                >;
 	};
 };
 
