@@ -72,6 +72,12 @@
                 >;
 	};
 
+	led_pin: pinmux_km_led_pin {
+		pinctrl-single,pins = <
+			AM33XX_PADCONF(AM335X_PIN_LCD_DATA14, PIN_OUTPUT_PULLDOWN, MUX_MODE7)   /* P8_31 (GPIO0_10) USER_LED */
+		>;
+	};
+
 	uart1_pins: pinmux_uart1_pins {
 		pinctrl-single,pins = <
 			AM33XX_PADCONF(AM335X_PIN_UART1_TXD, PIN_OUTPUT_PULLDOWN, MUX_MODE0)	/* P9_24 UART1_TXD */
