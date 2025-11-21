@@ -277,6 +277,10 @@
         };
 };
 
+&i2c2 {
+	status = "disabled";
+};
+
 &spi0 {
         pinctrl-names = "default";
        /* pinctrl-0 = <&spi0_pins>;*/
