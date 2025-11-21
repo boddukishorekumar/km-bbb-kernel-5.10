@@ -256,6 +256,17 @@
         };
 };
 
+&i2c2 {
+       status = "disabled";
+ };
+
+&lcdc {
+    status = "disabled";
+};
+
+&tda19988 {
+    status = "disabled";
+};
 
 
 
