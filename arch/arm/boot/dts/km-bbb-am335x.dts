@@ -78,6 +78,12 @@
 		>;
 	};
 
+	buzzer_pin: pinmux_km_buzzer_pin {
+		pinctrl-single,pins = <
+			AM33XX_PADCONF(AM335X_PIN_LCD_DATA13, PIN_OUTPUT, MUX_MODE7)   /* P8_33 (GPIO0_9) BUZZER */
+		>;
+	};
+
 	uart1_pins: pinmux_uart1_pins {
 		pinctrl-single,pins = <
 			AM33XX_PADCONF(AM335X_PIN_UART1_TXD, PIN_OUTPUT_PULLDOWN, MUX_MODE0)	/* P9_24 UART1_TXD */
