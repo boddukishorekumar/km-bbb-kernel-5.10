@@ -168,6 +168,12 @@
 			AM33XX_PADCONF(AM335X_PIN_UART1_CTSN, PIN_OUTPUT, MUX_MODE2)	/* P9_20 CAN0_TX */
 		>;
 	};
+
+	adxl345_int_pin: pinmux_km_adxl345_int_pin {
+		pinctrl-single,pins = <
+			AM33XX_PADCONF(AM335X_PIN_GPMC_A0, PIN_INPUT, MUX_MODE7)   /* P9_15 (GPIO1_16) ADXL345_INT */
+		>;
+	};
 };
 
 &uart1 {
