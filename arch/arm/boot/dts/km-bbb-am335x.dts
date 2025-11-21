@@ -49,6 +49,17 @@
 			debounce-interval = <5>;
 		};
 	};
+
+       dht110: dht11 {
+               status = "okay";
+               compatible = "dht11";
+
+               pinctrl-names = "default";
+               pinctrl-0 = <&dht11_pin>;
+
+               gpios = <&gpio1 29 0>;
+
+       };
 };
 
 &cpu0_opp_table {
@@ -160,6 +171,12 @@
 	adxl345_int_pin: pinmux_km_adxl345_int_pin {
 		pinctrl-single,pins = <
 			AM33XX_PADCONF(AM335X_PIN_GPMC_A0, PIN_INPUT, MUX_MODE7)   /* P9_15 (GPIO1_16) ADXL345_INT */
+		>;
+	};
+
+	dht11_pin: pinmux_km_dht11_pin {
+		pinctrl-single,pins = <
+			AM33XX_PADCONF(AM335X_PIN_GPMC_CSN0, PIN_OUTPUT, MUX_MODE7)   /* P8_26 (GPIO1_29) DHT11 */
 		>;
 	};
 
