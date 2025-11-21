@@ -71,7 +71,78 @@
                         AM33XX_PADCONF(AM335X_PIN_GPMC_AD11, PIN_INPUT_PULLUP, MUX_MODE7)      /* P8_17 (GPIO0_27) SW_DOWN */
                 >;
 	};
+
+	uart1_pins: pinmux_uart1_pins {
+		pinctrl-single,pins = <
+			AM33XX_PADCONF(AM335X_PIN_UART1_TXD, PIN_OUTPUT_PULLDOWN, MUX_MODE0)	/* P9_24 UART1_TXD */
+			AM33XX_PADCONF(AM335X_PIN_UART1_RXD, PIN_INPUT_PULLUP, MUX_MODE0)	/* P9_26 UART1_RXD */
+                >;
+	};
+
+	uart2_pins: pinmux_uart2_pins {
+		pinctrl-single,pins = <
+			AM33XX_PADCONF(AM335X_PIN_SPI0_D0, PIN_OUTPUT_PULLDOWN, MUX_MODE1)	/* P9_21 UART2_TXD */
+			AM33XX_PADCONF(AM335X_PIN_SPI0_SCLK, PIN_INPUT_PULLUP, MUX_MODE1)	/* P9_22 UART2_RXD */
+                >;
+	};
+
+	uart4_pins:pinmux_uart4_pins {
+		pinctrl-single,pins = <
+			AM33XX_PADCONF(AM335X_PIN_GPMC_WPN, PIN_OUTPUT_PULLDOWN, MUX_MODE6)	/* P9_13 UART4_TXD */
+			AM33XX_PADCONF(AM335X_PIN_GPMC_WAIT0, PIN_INPUT_PULLUP, MUX_MODE6)	/* P9_11 UART4_RXD */
+			/* this is additional for RS485 - is this required?? */
+			/* 0x078   0x0f */   /*P9_12(GPIO1_28-->RS485_CONTROL)Mode7|Pull_UPDN Disable*/
+		>;
+	};
+
+	uart5_pins: pinmux_uart5_pins {
+		pinctrl-single,pins = <
+			AM33XX_PADCONF(AM335X_PIN_LCD_DATA8, PIN_OUTPUT_PULLDOWN, MUX_MODE4)	/* P8_37 UART5_TXD */
+			AM33XX_PADCONF(AM335X_PIN_LCD_DATA9, PIN_INPUT_PULLUP, MUX_MODE4)	/* P8_38 UART5_RXD */
+		>;
+	};
 };
+
+&uart1 {
+        pinctrl-names = "default";
+        pinctrl-0 = <&uart1_pins>;
+
+	status = "disabled";
+};
+
+&uart2 {
+        pinctrl-names = "default";
+        pinctrl-0 = <&uart2_pins>;
+
+        status = "disabled";
+};
+
+&uart4 {
+        pinctrl-names = "default";
+        pinctrl-0 = <&uart4_pins>;
+
+        status = "disabled";
+
+/* this is additional for RS485 - is this required?? */
+/*
+        rts-gpio = <&gpio1 28 GPIO_ACTIVE_HIGH>;
+        rs485-rts-active-high;
+        rs485-rx-during-tx;
+        rs485-rts-delay = <1 1>;
+        linux,rs485-enabled-at-boot-time;
+*/
+};
+
+&uart5 {
+        pinctrl-names = "default";
+        pinctrl-0 = <&uart5_pins>;
+
+	status = "disabled";
+};
+
+
+
+
 
 /*
  * The below gpiolibd support information comes from am335x-boneblack.dts, used
