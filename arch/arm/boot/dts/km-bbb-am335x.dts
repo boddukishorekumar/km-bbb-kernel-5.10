@@ -231,6 +231,51 @@
 	status = "disabled";
 };
 
+&i2c1 {
+        pinctrl-names = "default";
+        //pinctrl-0 = <&i2c0_pins>;
+        pinctrl-0 = <&i2c1_pins>;
+
+        status = "okay";
+        clock-frequency = <100000>;
+
+	/* rtcds: rtcds@68 {
+                compatible = "ds,ds1307";
+                reg = <0x68>;
+                #address-cells = <1>;
+                #size-cells = <1>;
+        }; */
+      /*  baseboard_eeprom: baseboard_eeprom@50 {
+                compatible = "atmel,24c256";
+                reg = <0x50>;
+
+                #address-cells = <1>;
+                #size-cells = <1>;
+                baseboard_data: baseboard_data@0 {
+                        reg = <0 0x100>;
+                };
+        };*/
+        rtc1: ds1307@68 {
+                compatible = "dallas,ds1307";
+                reg = <0x68>;
+                #address-cells = <1>;
+                #size-cells = <1>;
+        };
+
+	eeprom: eeprom@50 {
+		compatible = "atmel,24c02";
+		reg = <0x50>;
+	};
+
+	adxl345:adxl345@53 {
+		compatible = "adi,adxl345";
+		reg = <0x53>;
+                pinctrl-names = "default";
+                pinctrl-1 = <&adxl_pins>;
+		interrupt-parent = <&gpio1>;
+		interrupts = <16 1>;
+        };
+};
 
 
 
