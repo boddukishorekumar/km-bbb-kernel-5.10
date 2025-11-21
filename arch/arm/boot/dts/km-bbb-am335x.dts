@@ -186,6 +186,12 @@
 			AM33XX_PADCONF(AM335X_PIN_MCASP0_AHCLKX, PIN_OUTPUT, MUX_MODE7)   /* P9_25 (GPIO3_21) UART1_CTL */
 		>;
 	};
+
+	uart2_ctl_pin: pinmux_km_uart2_ctl_pin {
+		pinctrl-single,pins = <
+			AM33XX_PADCONF(AM335X_PIN_MCASP0_FSR, PIN_INPUT_PULLDOWN, MUX_MODE7)   /* P9_27 (GPIO3_19) UART2_CTL */
+		>;
+	};
 };
 
 &uart1 {
