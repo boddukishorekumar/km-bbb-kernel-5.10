@@ -175,6 +175,12 @@
 		>;
 	};
 
+	dht11_pin: dht11_pins {
+		pinctrl-single,pins = <
+			AM33XX_PADCONF(AM335X_PIN_GPMC_CSN0, PIN_OUTPUT, MUX_MODE7)   /* P8_26 (GPIO1_29) DHT11 */
+		>;
+	};
+
 	rs485_ctl_pin: pinmux_km_rs485_ctl_pin {
 		pinctrl-single,pins = <
 			AM33XX_PADCONF(AM335X_PIN_GPMC_BEN1, PIN_OUTPUT, MUX_MODE7)   /* P9_12 (GPIO1_28) RS485_CONTROL */
@@ -312,6 +318,12 @@
 		 reg = <1>;
 		 spi-max-frequency = <16000000>;
 	 };
+};
+
+dht11 {
+        pinctrl-0 = <&dht11_pin>;
+        compatible = "dht11";
+        gpios = <&gpio1 29 0>;
 };
 
 &tscadc {
