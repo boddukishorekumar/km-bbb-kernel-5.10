@@ -314,6 +314,14 @@
 	 };
 };
 
+&lcdc {
+    status = "disabled";
+};
+
+&tda19988 {
+    status = "disabled";
+};
+
 
 
 /*
