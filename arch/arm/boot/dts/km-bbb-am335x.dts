@@ -180,6 +180,12 @@
 			AM33XX_PADCONF(AM335X_PIN_GPMC_BEN1, PIN_OUTPUT, MUX_MODE7)   /* P9_12 (GPIO1_28) RS485_CONTROL */
 		>;
 	};
+
+	uart1_ctl_pin: pinmux_km_uart1_ctl_pin {
+		pinctrl-single,pins = <
+			AM33XX_PADCONF(AM335X_PIN_MCASP0_AHCLKX, PIN_OUTPUT, MUX_MODE7)   /* P9_25 (GPIO3_21) UART1_CTL */
+		>;
+	};
 };
 
 &uart1 {
