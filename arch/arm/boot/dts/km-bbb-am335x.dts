@@ -298,6 +298,19 @@
 	 };
 };
 
+&tscadc {
+	status = "okay";
+
+	adc {
+               status = "okay";
+               ti,adc-channels = <0 1>;        /* LM35 and  Potentiometer */
+       };
+
+       tsc {
+               status = "disabled";
+	};
+};
+
 
 
 /*
