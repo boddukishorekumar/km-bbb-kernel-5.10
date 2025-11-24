@@ -160,6 +160,14 @@
 			AM33XX_PADCONF(AM335X_PIN_MCASP0_AXR0, PIN_OUTPUT_PULLUP, MUX_MODE3)	/* P9_30 SPI1_MOSI */
 			AM33XX_PADCONF(AM335X_PIN_MCASP0_ACLKX, PIN_INPUT_PULLUP, MUX_MODE3)	/* P9_31 SPI1_SCLK */
 			AM33XX_PADCONF(AM335X_PIN_MCASP0_AHCLKR, PIN_OUTPUT_PULLUP, MUX_MODE3)	/* P9_28 SPI1_CS0 */
+			/* tft display related */
+			AM33XX_PADCONF(AM335X_PIN_ECAP0_IN_PWM0_OUT, PIN_OUTPUT, MUX_MODE2)  /* SPI1_CS1 */
+			/* GPIO for DC - GPMC_CLK (P8.18) - gpio2_2 */
+			AM33XX_PADCONF(AM335X_PIN_GPMC_CLK, PIN_OUTPUT, MUX_MODE7)
+			/* GPIO for Reset - LCD_DATA12 (P8.35) - gpio1_12 */
+			AM33XX_PADCONF(AM335X_PIN_LCD_DATA12, PIN_OUTPUT, MUX_MODE7)
+			/* GPIO for Backlight - gpio0_20 */
+			/* AM33XX_PADCONF(AM335X_PIN_XDMA_EVENT_INTR1, PIN_OUTPUT_PULLUP, MUX_MODE7) */
 		>;
 	};
 
@@ -301,6 +309,19 @@
 
 	pinctrl-names = "default";
 	pinctrl-0 = <&spi1_pins>;
+	cs-gpios = <&gpio0 7 GPIO_ACTIVE_LOW>;
+
+	tft_display: tft_display@0 {
+	    //compatible = "jianda,jd-t18003-t01","sitronix,st7735r"; // Replace with your display's controller
+	    compatible = "sitronix,st7735r"; // Replace with your display's controller
+	    //compatible = "spidev"; // Replace with your display's controller
+	    reg = <1>; // SPI Chip Select 1
+	    spi-max-frequency = <16000000>;
+	    dc-gpios = <&gpio2 1 GPIO_ACTIVE_HIGH>;    // Data/Command control line
+	    buswidth = <8> ;
+	    reset-gpios = <&gpio0 8 GPIO_ACTIVE_LOW>;  // Reset line
+	    //backlight-gpios = <&gpio0 20 GPIO_ACTIVE_HIGH>;
+	};
 
 	enc28j60: ethernet@0 {
 		compatible = "microchip,enc28j60";
