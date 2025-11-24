@@ -18,20 +18,22 @@
 		base_dtb_timestamp = __TIMESTAMP__;
 	};
 
-	gpio_keys: km-bbb-switches {
+	km_bbb_switches0: km-bbb-switches {
+		status = "okay";
 		compatible = "gpio-keys";
+
 		pinctrl-names = "default";
-		pinctrl-0 = <&km_gpio_switches>;
+		pinctrl-0 = <&gpio_switches>;
 		autorepeat;
 
-	        switch11 {
+		switch11 {
 			label = "wakeup";
 			linux,code = <143>;
 			/*linux,code = <KEY_WAKEUP>;*/
 			gpios = <&gpio0 11 GPIO_ACTIVE_HIGH>;
 			debounce-interval = <5>;
 			wakeup-source;
-                };
+		};
 
 		switch26 {
 			label = "volume-up";
@@ -39,9 +41,9 @@
 			/*linux,code = <KEY_VOLUMEUP>;*/
 			gpios = <&gpio0 26 GPIO_ACTIVE_LOW>;
 			debounce-interval = <5>;
-                };
+		};
 
-                switch27 {
+		switch27 {
 			label = "volume-down";
 			linux,code = <114>;
 			/*linux,code = <KEY_VOLUMEDOWN>;*/
@@ -75,37 +77,37 @@
 
 /* For modifing this you need to refer BBB P8 & P9 HeaderTable.pdf */
 &am33xx_pinmux {
-	km_gpio_switches: pinmux_km_gpio_switches {
-                pinctrl-single,pins = <
-                        AM33XX_PADCONF(AM335X_PIN_LCD_DATA15, PIN_INPUT_PULLDOWN, MUX_MODE7)   /* P8_32 (GPIO0_11) USER_SW */
-                        AM33XX_PADCONF(AM335X_PIN_GPMC_AD10, PIN_INPUT_PULLUP, MUX_MODE7)      /* P8_14 (GPIO0_26) SW_UP */
-                        AM33XX_PADCONF(AM335X_PIN_GPMC_AD11, PIN_INPUT_PULLUP, MUX_MODE7)      /* P8_17 (GPIO0_27) SW_DOWN */
-                >;
+	gpio_switches: pinmux_km_gpio_switches {
+		pinctrl-single,pins = <
+			AM33XX_PADCONF(AM335X_PIN_LCD_DATA15, PIN_INPUT_PULLDOWN, MUX_MODE7)	/* P8_32 (GPIO0_11) USER_SW */
+			AM33XX_PADCONF(AM335X_PIN_GPMC_AD10, PIN_INPUT_PULLUP, MUX_MODE7)	/* P8_14 (GPIO0_26) SW_UP */
+			AM33XX_PADCONF(AM335X_PIN_GPMC_AD11, PIN_INPUT_PULLUP, MUX_MODE7)	/* P8_17 (GPIO0_27) SW_DOWN */
+		>;
 	};
 
 	led_pin: pinmux_km_led_pin {
 		pinctrl-single,pins = <
-			AM33XX_PADCONF(AM335X_PIN_LCD_DATA14, PIN_OUTPUT_PULLDOWN, MUX_MODE7)   /* P8_31 (GPIO0_10) USER_LED */
+			AM33XX_PADCONF(AM335X_PIN_LCD_DATA14, PIN_OUTPUT_PULLDOWN, MUX_MODE7)	/* P8_31 (GPIO0_10) USER_LED */
 		>;
 	};
 
 	buzzer_pin: pinmux_km_buzzer_pin {
 		pinctrl-single,pins = <
-			AM33XX_PADCONF(AM335X_PIN_LCD_DATA13, PIN_OUTPUT, MUX_MODE7)   /* P8_33 (GPIO0_9) BUZZER */
+			AM33XX_PADCONF(AM335X_PIN_LCD_DATA13, PIN_OUTPUT, MUX_MODE7)	/* P8_33 (GPIO0_9) BUZZER */
 		>;
 	};
 
 	key_pad_pins: pinmux_km_key_pad_pins {
 		pinctrl-single,pins = <
 			AM33XX_PADCONF(AM335X_PIN_LCD_AC_BIAS_EN, PIN_INPUT_PULLDOWN, MUX_MODE7)	/* P8_30 (GPIO2_25) KEY_PAD_8 */
-			AM33XX_PADCONF(AM335X_PIN_LCD_DATA6, PIN_INPUT, MUX_MODE7)   			/* P8_39 (GPIO2_12) KEY_PAD_6 */
-			AM33XX_PADCONF(AM335X_PIN_LCD_DATA7, PIN_INPUT, MUX_MODE7)   			/* P8_40 (GPIO2_13) KEY_PAD_7 */
-			AM33XX_PADCONF(AM335X_PIN_LCD_DATA4, PIN_INPUT, MUX_MODE7)   			/* P8_41 (GPIO2_10) KEY_PAD_4 */
-			AM33XX_PADCONF(AM335X_PIN_LCD_DATA5, PIN_INPUT, MUX_MODE7)   			/* P8_42 (GPIO2_11) KEY_PAD_5 */
-			AM33XX_PADCONF(AM335X_PIN_LCD_DATA2, PIN_INPUT, MUX_MODE7)   			/* P8_43 (GPIO2_8)  KEY_PAD_2 */
-			AM33XX_PADCONF(AM335X_PIN_LCD_DATA3, PIN_INPUT, MUX_MODE7)   			/* P8_44 (GPIO2_9)  KEY_PAD_3 */
-			AM33XX_PADCONF(AM335X_PIN_LCD_DATA0, PIN_INPUT, MUX_MODE7)   			/* P8_45 (GPIO2_6)  KEY_PAD_0 */
-			AM33XX_PADCONF(AM335X_PIN_LCD_DATA1, PIN_INPUT, MUX_MODE7)   			/* P8_46 (GPIO2_7)  KEY_PAD_1 */
+			AM33XX_PADCONF(AM335X_PIN_LCD_DATA6, PIN_INPUT, MUX_MODE7)	/* P8_39 (GPIO2_12) KEY_PAD_6 */
+			AM33XX_PADCONF(AM335X_PIN_LCD_DATA7, PIN_INPUT, MUX_MODE7)	/* P8_40 (GPIO2_13) KEY_PAD_7 */
+			AM33XX_PADCONF(AM335X_PIN_LCD_DATA4, PIN_INPUT, MUX_MODE7)	/* P8_41 (GPIO2_10) KEY_PAD_4 */
+			AM33XX_PADCONF(AM335X_PIN_LCD_DATA5, PIN_INPUT, MUX_MODE7)	/* P8_42 (GPIO2_11) KEY_PAD_5 */
+			AM33XX_PADCONF(AM335X_PIN_LCD_DATA2, PIN_INPUT, MUX_MODE7)	/* P8_43 (GPIO2_8)  KEY_PAD_2 */
+			AM33XX_PADCONF(AM335X_PIN_LCD_DATA3, PIN_INPUT, MUX_MODE7)	/* P8_44 (GPIO2_9)  KEY_PAD_3 */
+			AM33XX_PADCONF(AM335X_PIN_LCD_DATA0, PIN_INPUT, MUX_MODE7)	/* P8_45 (GPIO2_6)  KEY_PAD_0 */
+			AM33XX_PADCONF(AM335X_PIN_LCD_DATA1, PIN_INPUT, MUX_MODE7)	/* P8_46 (GPIO2_7)  KEY_PAD_1 */
 		>;
 	};
 
@@ -113,22 +115,22 @@
 		pinctrl-single,pins = <
 			AM33XX_PADCONF(AM335X_PIN_UART1_TXD, PIN_OUTPUT_PULLDOWN, MUX_MODE0)	/* P9_24 UART1_TXD */
 			AM33XX_PADCONF(AM335X_PIN_UART1_RXD, PIN_INPUT_PULLUP, MUX_MODE0)	/* P9_26 UART1_RXD */
-                >;
+		>;
 	};
 
 	uart2_pins: pinmux_uart2_pins {
 		pinctrl-single,pins = <
 			AM33XX_PADCONF(AM335X_PIN_SPI0_D0, PIN_OUTPUT_PULLDOWN, MUX_MODE1)	/* P9_21 UART2_TXD */
 			AM33XX_PADCONF(AM335X_PIN_SPI0_SCLK, PIN_INPUT_PULLUP, MUX_MODE1)	/* P9_22 UART2_RXD */
-                >;
+		>;
 	};
 
-	uart4_pins:pinmux_uart4_pins {
+	uart4_pins: pinmux_uart4_pins {
 		pinctrl-single,pins = <
 			AM33XX_PADCONF(AM335X_PIN_GPMC_WPN, PIN_OUTPUT_PULLDOWN, MUX_MODE6)	/* P9_13 UART4_TXD */
 			AM33XX_PADCONF(AM335X_PIN_GPMC_WAIT0, PIN_INPUT_PULLUP, MUX_MODE6)	/* P9_11 UART4_RXD */
 			/* this is additional for RS485 - is this required?? */
-			/* 0x078   0x0f */   /*P9_12(GPIO1_28-->RS485_CONTROL)Mode7|Pull_UPDN Disable*/
+			/* 0x078   0x0f */	 /*P9_12(GPIO1_28-->RS485_CONTROL)Mode7|Pull_UPDN Disable*/
 		>;
 	};
 
@@ -156,12 +158,12 @@
 		pinctrl-single,pins = <
 			AM33XX_PADCONF(AM335X_PIN_MCASP0_FSX, PIN_INPUT_PULLUP, MUX_MODE3)	/* P9_29 SPI1_MISO */
 			AM33XX_PADCONF(AM335X_PIN_MCASP0_AXR0, PIN_OUTPUT_PULLUP, MUX_MODE3)	/* P9_30 SPI1_MOSI */
-			AM33XX_PADCONF(AM335X_PIN_MCASP0_ACLKX, PIN_INPUT_PULLUP, MUX_MODE3)    /* P9_31 SPI1_SCLK */
+			AM33XX_PADCONF(AM335X_PIN_MCASP0_ACLKX, PIN_INPUT_PULLUP, MUX_MODE3)	/* P9_31 SPI1_SCLK */
 			AM33XX_PADCONF(AM335X_PIN_MCASP0_AHCLKR, PIN_OUTPUT_PULLUP, MUX_MODE3)	/* P9_28 SPI1_CS0 */
 		>;
 	};
 
-	can0_pins:pinmux_can0_pins {
+	can0_pins: pinmux_can0_pins {
 		pinctrl-single,pins = <
 			AM33XX_PADCONF(AM335X_PIN_UART1_RTSN, PIN_INPUT, MUX_MODE2)	/* P9_19 CAN0_RX */
 			AM33XX_PADCONF(AM335X_PIN_UART1_CTSN, PIN_OUTPUT, MUX_MODE2)	/* P9_20 CAN0_TX */
@@ -176,7 +178,7 @@
 
 	dht11_pin: pinmux_km_dht11_pin {
 		pinctrl-single,pins = <
-			AM33XX_PADCONF(AM335X_PIN_GPMC_CSN0, PIN_OUTPUT, MUX_MODE7)   /* P8_26 (GPIO1_29) DHT11 */
+			AM33XX_PADCONF(AM335X_PIN_GPMC_CSN0, PIN_INPUT_PULLUP, MUX_MODE7)	/* P8_26 (GPIO1_29) DHT11 */
 		>;
 	};
 
@@ -200,91 +202,91 @@
 };
 
 &uart1 {
-        pinctrl-names = "default";
-        pinctrl-0 = <&uart1_pins>;
-
 	status = "disabled";
+
+	pinctrl-names = "default";
+	pinctrl-0 = <&uart1_pins>;
 };
 
 &uart2 {
-        pinctrl-names = "default";
-        pinctrl-0 = <&uart2_pins>;
+	status = "disabled";
 
-        status = "disabled";
+	pinctrl-names = "default";
+	pinctrl-0 = <&uart2_pins>;
 };
 
 &uart4 {
-        pinctrl-names = "default";
-        pinctrl-0 = <&uart4_pins>;
+	status = "disabled";
 
-        status = "disabled";
+	pinctrl-names = "default";
+	pinctrl-0 = <&uart4_pins>;
 
 /* this is additional for RS485 - is this required?? */
 /*
-        rts-gpio = <&gpio1 28 GPIO_ACTIVE_HIGH>;
-        rs485-rts-active-high;
-        rs485-rx-during-tx;
-        rs485-rts-delay = <1 1>;
-        linux,rs485-enabled-at-boot-time;
+	rts-gpio = <&gpio1 28 GPIO_ACTIVE_HIGH>;
+	rs485-rts-active-high;
+	rs485-rx-during-tx;
+	rs485-rts-delay = <1 1>;
+	linux,rs485-enabled-at-boot-time;
 */
 };
 
 &uart5 {
-        pinctrl-names = "default";
-        pinctrl-0 = <&uart5_pins>;
-
 	status = "disabled";
+
+	pinctrl-names = "default";
+	pinctrl-0 = <&uart5_pins>;
 };
 
 &i2c1 {
-        pinctrl-names = "default";
-        //pinctrl-0 = <&i2c0_pins>;
-        pinctrl-0 = <&i2c1_pins>;
+	status = "okay";
 
-        status = "okay";
-        clock-frequency = <100000>;
+	pinctrl-names = "default";
+	pinctrl-0 = <&i2c1_pins>;
+
+	clock-frequency = <100000>;
 
 	/* rtcds: rtcds@68 {
-                compatible = "ds,ds1307";
-                reg = <0x68>;
-                #address-cells = <1>;
-                #size-cells = <1>;
-        }; */
-      /*  baseboard_eeprom: baseboard_eeprom@50 {
-                compatible = "atmel,24c256";
-                reg = <0x50>;
+		compatible = "ds,ds1307";
+		reg = <0x68>;
+		#address-cells = <1>;
+		#size-cells = <1>;
+	}; */
+	/*  baseboard_eeprom: baseboard_eeprom@50 {
+			compatible = "atmel,24c256";
+			reg = <0x50>;
 
-                #address-cells = <1>;
-                #size-cells = <1>;
-                baseboard_data: baseboard_data@0 {
-                        reg = <0 0x100>;
-                };
-        };*/
-        rtc1: ds1307@68 {
-                compatible = "dallas,ds1307";
-                reg = <0x68>;
-                #address-cells = <1>;
-                #size-cells = <1>;
-        };
+			#address-cells = <1>;
+			#size-cells = <1>;
+			baseboard_data: baseboard_data@0 {
+			reg = <0 0x100>;
+		};
+	};*/
+	rtc1: ds1307@68 {
+		compatible = "dallas,ds1307";
+		reg = <0x68>;
+		#address-cells = <1>;
+		#size-cells = <1>;
+	};
 
 	eeprom: eeprom@50 {
 		compatible = "atmel,24c02";
 		reg = <0x50>;
 	};
 
-	adxl345:adxl345@53 {
+	adxl345: adxl345@53 {
 		compatible = "adi,adxl345";
 		reg = <0x53>;
-                pinctrl-names = "default";
-                pinctrl-1 = <&adxl_pins>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&adxl345_int_pin>;
 		interrupt-parent = <&gpio1>;
 		interrupts = <16 1>;
-        };
+	};
 };
 
 &i2c2 {
-       status = "disabled";
- };
+	status = "disabled";
+};
 
 &lcdc {
     status = "disabled";
@@ -295,36 +297,38 @@
 };
 
 &spi1 {
-        pinctrl-names = "default";
-        pinctrl-0 = <&spi1_pins>;
+	status = "disabled";
+
+	pinctrl-names = "default";
+	pinctrl-0 = <&spi1_pins>;
 
 	enc28j60: ethernet@0 {
-                   compatible = "microchip,enc28j60";
-                   pinctrl-names = "default";
-                   pinctrl-0 = <&enc28j60_pin>;
-                   reg = <0>;
-                   interrupt-parent = <&gpio1>;
-                   interrupts = <17 2>;
-                   spi-max-frequency = <12000000>;
-                };
+		compatible = "microchip,enc28j60";
+		pinctrl-names = "default";
+		pinctrl-0 = <&enc28j60_pin>;
+		reg = <0>;
+		interrupt-parent = <&gpio1>;
+		interrupts = <17 2>;
+		spi-max-frequency = <12000000>;
+	};
 
 	spidev1: spi@1 {
 		 compatible = "spidev";
 		 reg = <1>;
 		 spi-max-frequency = <16000000>;
-	 };
+	};
 };
 
 &tscadc {
 	status = "okay";
 
 	adc {
-               status = "okay";
-               ti,adc-channels = <0 1>;        /* LM35 and  Potentiometer */
-       };
+		status = "okay";
+		ti,adc-channels = <0 1>;        /* LM35 and  Potentiometer */
+	};
 
-       tsc {
-               status = "disabled";
+	tsc {
+		status = "disabled";
 	};
 };
 
