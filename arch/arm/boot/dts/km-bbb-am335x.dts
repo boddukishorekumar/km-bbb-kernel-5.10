@@ -57,6 +57,46 @@
 		gpios = <&gpio1 29 0>;
 		status = "okay";
 	};
+
+	char_lcd: auxdisplay {
+	    /*
+	     * The compatible string should match the driver you intend to use.
+	     * Check the specific driver's binding documentation for the correct string.
+	     * A common one might be "hitachi,hd44780-lcd" or similar.
+	     */
+            compatible = "hit,hd44780";
+	    /* compatible = "hit,hd44780", "hitachi,hd44780-lcd"; */
+	    status = "okay";
+
+	    /* Link to the pin configuration defined above */
+	    pinctrl-names = "default";
+	    pinctrl-0 = <&char_lcd_pins>;
+
+	    /*
+	     * Define the GPIOs using function-gpios properties.
+	     * The property name indicates the GPIO's function (e.g., rs-gpios for Register Select).
+	     * The values are phandles to the GPIO controller, the pin number/offset, and flags.
+	     * Use standard flags like GPIO_ACTIVE_HIGH or GPIO_ACTIVE_LOW defined in <dt-bindings/gpio/gpio.h>.
+	     */
+	    rs-gpios = <&gpio2 22 GPIO_ACTIVE_HIGH>;
+	    enable-gpios = <&gpio2 24 GPIO_ACTIVE_HIGH>;
+
+	    /*
+	     * For data lines (D4-D7), an array of gpios is accepted as they serve the same function.
+	     */
+	    data-gpios = <
+	        &gpio1 12 GPIO_ACTIVE_HIGH /* D4 */
+	        &gpio1 13 GPIO_ACTIVE_HIGH /* D5 */
+	        &gpio1 14 GPIO_ACTIVE_HIGH /* D6 */
+	        &gpio1 15 GPIO_ACTIVE_HIGH  /* D7 */
+	    >;
+
+            display-height-chars = <2>;
+            display-width-chars = <16>;
+
+	    /* Optional properties, depending on the driver and hardware */
+	    /* backlight-gpios = <&gpiob 1 GPIO_ACTIVE_HIGH>; */ /* Example backlight pin */
+	};
 };
 
 &cpu0_opp_table {
