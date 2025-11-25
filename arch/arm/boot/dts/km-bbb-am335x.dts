@@ -18,10 +18,12 @@
 		base_dtb_timestamp = __TIMESTAMP__;
 	};
 
-	gpio_keys: km-bbb-switches {
+	km_bbb_switches0: km-bbb-switches {
 		compatible = "gpio-keys";
+		status = "okay";
+
 		pinctrl-names = "default";
-		pinctrl-0 = <&km_gpio_switches>;
+		pinctrl-0 = <&gpio_switches>;
 		autorepeat;
 
 		switch11 {
@@ -51,11 +53,14 @@
 	};
 
 	dht110: dht11 {
+		compatible = "dht11";
+		status = "okay";
+
 		pinctrl-names = "default";
 		pinctrl-0 = <&dht11_pin>;
-		compatible = "dht11";
+
 		gpios = <&gpio1 29 0>;
-		status = "okay";
+
 	};
 
 	char_lcd: auxdisplay {
@@ -85,9 +90,9 @@
 	     * For data lines (D4-D7), an array of gpios is accepted as they serve the same function.
 	     */
 	    data-gpios = <
-	        &gpio1 12 GPIO_ACTIVE_HIGH /* D4 */
-	        &gpio1 13 GPIO_ACTIVE_HIGH /* D5 */
-	        &gpio1 14 GPIO_ACTIVE_HIGH /* D6 */
+	        &gpio1 12 GPIO_ACTIVE_HIGH  /* D4 */
+	        &gpio1 13 GPIO_ACTIVE_HIGH  /* D5 */
+	        &gpio1 14 GPIO_ACTIVE_HIGH  /* D6 */
 	        &gpio1 15 GPIO_ACTIVE_HIGH  /* D7 */
 	    >;
 
@@ -112,7 +117,7 @@
 
 /* For modifing this you need to refer BBB P8 & P9 HeaderTable.pdf */
 &am33xx_pinmux {
-	km_gpio_switches: pinmux_km_gpio_switches {
+	gpio_switches: pinmux_km_gpio_switches {
 		pinctrl-single,pins = <
 			AM33XX_PADCONF(AM335X_PIN_LCD_DATA15, PIN_INPUT_PULLDOWN, MUX_MODE7)	/* P8_32 (GPIO0_11) USER_SW */
 			AM33XX_PADCONF(AM335X_PIN_GPMC_AD10, PIN_INPUT_PULLUP, MUX_MODE7)	/* P8_14 (GPIO0_26) SW_UP */
@@ -257,24 +262,24 @@
 };
 
 &uart1 {
+	status = "disabled";
+
 	pinctrl-names = "default";
 	pinctrl-0 = <&uart1_pins>;
-
-	status = "disabled";
 };
 
 &uart2 {
+	status = "disabled";
+
 	pinctrl-names = "default";
 	pinctrl-0 = <&uart2_pins>;
-
-	status = "disabled";
 };
 
 &uart4 {
+	status = "disabled";
+
 	pinctrl-names = "default";
 	pinctrl-0 = <&uart4_pins>;
-
-	status = "disabled";
 
 /* this is additional for RS485 - is this required?? */
 /*
@@ -287,17 +292,18 @@
 };
 
 &uart5 {
+	status = "disabled";
+
 	pinctrl-names = "default";
 	pinctrl-0 = <&uart5_pins>;
-
-	status = "disabled";
 };
 
 &i2c1 {
+	status = "okay";
+
 	pinctrl-names = "default";
 	pinctrl-0 = <&i2c1_pins>;
 
-	status = "okay";
 	clock-frequency = <100000>;
 
 	/* rtcds: rtcds@68 {
@@ -343,6 +349,8 @@
 };
 
 &spi0 {
+	status = "disabled";
+
 	pinctrl-names = "default";
 	/* pinctrl-0 = <&spi0_pins>;*/
 
@@ -354,6 +362,8 @@
 };
 
 &spi1 {
+	status = "disabled";
+
 	pinctrl-names = "default";
 	pinctrl-0 = <&spi1_pins>;
 	cs-gpios = <&gpio0 7 GPIO_ACTIVE_LOW>;
@@ -391,7 +401,12 @@
 	status = "okay";
 
 	adc {
+		status = "okay";
 		ti,adc-channels = <0 1>;	/* LM35 and  Potentiometer */
+	};
+
+	tsc {
+		status = "disabled";
 	};
 };
 
