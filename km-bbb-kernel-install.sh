@@ -28,10 +28,11 @@ BCyan='\033[1;36m'        # Cyan
 BWhite='\033[1;37m'       # White
 
 BRedU='\033[4;31m'         # Underline
+
 clear
-temp=$USER
-echo "User Name:$temp"
- KERNEL_UTS=$(cat "include/generated/utsrelease.h" | awk '{print $3}' | sed 's/\"//g' )
+
+KERNEL_UTS=$(cat "include/generated/utsrelease.h" | awk '{print $3}' | sed 's/\"//g' )
+
 check_mmc () {
         FDISK=$(LC_ALL=C fdisk -l 2>/dev/null | grep "Disk ${media}:" | awk '{print $2}')
 
@@ -63,8 +64,7 @@ check_mmc () {
 }
 
 unmount_all_drive_partitions () {
-
-	     echo ""
+	echo ""
         echo "Unmounting Partitions"
         echo "-----------------------------"
 
@@ -78,9 +78,15 @@ unmount_all_drive_partitions () {
         done
 }
 
+print_usage () {
+	echo ""
+	echo -e "${Green}usage: sudo $(basename $0) [--mmc /dev/sdX]  [--board ex:1 ] [--scp]${NC}"
+	echo ""
+	exit
+}
 
 if [ -z "$1" ]; then
-	echo -e "${Green}usage: sudo $(basename $0) [--mmc /dev/sdX]  [--board ex:1 ] [--scp]${NC}"
+	print_usage
 fi
 
 if [ -d out ] ; then
@@ -147,15 +153,17 @@ while [ ! -z "$1" ] ; do
 			read username
 			echo "pls enter ipaddress of board"
 			read ipaddress
-			#echo -e "${Purple} scp out/${KERNEL_UTS}.zImage cp out/config-${KERNEL_UTS} ./out/${KERNEL_UTS}-modules.tar.gz  arch/arm/boot/dts/km-bbb-am335x.dtb username@$ipaddress:~/install ${NC}"
+			#echo -e "${Purple} scp out/${KERNEL_UTS}.zImage cp out/config-${KERNEL_UTS} ./out/${KERNEL_UTS}-modules.tar.gz  arch/arm/boot/dts/km-bbb-am335x.dtb ${username}@${ipaddres}s:~/install ${NC}"
 			#scp out/${KERNEL_UTS}.zImage out/config-${KERNEL_UTS} ./out/${KERNEL_UTS}-modules.tar.gz  arch/arm/boot/dts/km-bbb-am335x.dtb out/uEnv.txt ${username}@${ipaddress}:~/install
-		else
-			$username = $2
-			$ipaddress = $3
+		elif [ $# -eq 3 ] ; then
+			username=$2
+			ipaddress=$3
 			#echo -e "${Purple} scp out/${KERNEL_UTS}.zImage cp out/config-${KERNEL_UTS} ./out/${KERNEL_UTS}-modules.tar.gz  arch/arm/boot/dts/km-bbb-am335x.dtb $2@$3:~/install ${NC}"
 			#scp out/${KERNEL_UTS}.zImage out/config-${KERNEL_UTS} ./out/${KERNEL_UTS}-modules.tar.gz  arch/arm/boot/dts/km-bbb-am335x.dtb out/uEnv.txt $2@$3:~/install
+		else
+			print_usage
 		fi
-		echo -e "${Purple} scp out/${KERNEL_UTS}.zImage cp out/config-${KERNEL_UTS} ./out/${KERNEL_UTS}-modules.tar.gz ./out/${KERNEL_UTS}-dtbs.tar.gz username@$ipaddress:~/install ${NC}"
+		echo -e "${Purple} scp out/${KERNEL_UTS}.zImage cp out/config-${KERNEL_UTS} ./out/${KERNEL_UTS}-modules.tar.gz ./out/${KERNEL_UTS}-dtbs.tar.gz ${username}@${ipaddress}:~/install ${NC}"
 		scp out/${KERNEL_UTS}.zImage out/config-${KERNEL_UTS} ./out/${KERNEL_UTS}-modules.tar.gz ./out/${KERNEL_UTS}-dtbs.tar.gz out/uEnv.txt ${username}@${ipaddress}:~/install
 		;;
         esac
