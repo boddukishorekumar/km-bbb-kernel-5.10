@@ -19,8 +19,8 @@
 	};
 
 	km_bbb_switches0: km-bbb-switches {
-		compatible = "gpio-keys";
 		status = "okay";
+		compatible = "gpio-keys";
 
 		pinctrl-names = "default";
 		pinctrl-0 = <&gpio_switches>;
@@ -53,8 +53,8 @@
 	};
 
 	dht110: dht11 {
-		compatible = "dht11";
 		status = "okay";
+		compatible = "dht11";
 
 		pinctrl-names = "default";
 		pinctrl-0 = <&dht11_pin>;
@@ -64,6 +64,7 @@
 	};
 
 	char_lcd: auxdisplay {
+	    status = "okay";
 	    /*
 	     * The compatible string should match the driver you intend to use.
 	     * Check the specific driver's binding documentation for the correct string.
@@ -71,7 +72,6 @@
 	     */
             compatible = "hit,hd44780";
 	    /* compatible = "hit,hd44780", "hitachi,hd44780-lcd"; */
-	    status = "okay";
 
 	    /* Link to the pin configuration defined above */
 	    pinctrl-names = "default";
