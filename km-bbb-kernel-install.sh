@@ -112,6 +112,7 @@ while [ ! -z "$1" ] ; do
 		echo -e "${Purple}cp out/${KERNEL_UTS}.zImage /mnt/rootfs/boot/vmlinuz-${KERNEL_UTS}${NC}"
 		sudo cp ./out/${KERNEL_UTS}.zImage  /mnt/rootfs/boot/vmlinuz-${KERNEL_UTS}
 		sudo cp out/config-${KERNEL_UTS} /mnt/rootfs/boot/
+		sudo cp out/System.map-${KERNEL_UTS} /mnt/rootfs/boot/
 
 		sudo mkdir -p  /mnt/rootfs/boot/dtbs/${KERNEL_UTS}
 		echo -e "${Purple}cp arch/arm/boot/dts/km-bbb-am335x.dtb /mnt/rootfs/boot/dtbs/${KERNEL_UTS} ${NC}"
@@ -141,7 +142,7 @@ while [ ! -z "$1" ] ; do
 			echo -e "${Purple} echo uname_r=${KERNEL_UTS} > /media/board$2/uEnv.txt ${NC}"
 			sudo echo uname_r=${KERNEL_UTS} > /media/board$2/uEnv.txt
 
-			echo -e "${Purple} echo board_no=$2 >> /media/board$2/uEnv.txti${NC}"
+			echo -e "${Purple} echo board_no=$2 >> /media/board$2/uEnv.txt${NC}"
 			sudo echo board_no=$2 >> /media/board$2/uEnv.txt
 		else
 			echo "board number missing"
@@ -163,8 +164,8 @@ while [ ! -z "$1" ] ; do
 		else
 			print_usage
 		fi
-		echo -e "${Purple} scp out/${KERNEL_UTS}.zImage cp out/config-${KERNEL_UTS} ./out/${KERNEL_UTS}-modules.tar.gz ./out/${KERNEL_UTS}-dtbs.tar.gz ${username}@${ipaddress}:~/install ${NC}"
-		scp out/${KERNEL_UTS}.zImage out/config-${KERNEL_UTS} ./out/${KERNEL_UTS}-modules.tar.gz ./out/${KERNEL_UTS}-dtbs.tar.gz out/uEnv.txt ${username}@${ipaddress}:~/install
+		echo -e "${Purple} scp out/${KERNEL_UTS}.zImage cp out/config-${KERNEL_UTS} out/System.map-${KERNEL_UTS} out/${KERNEL_UTS}-modules.tar.gz out/${KERNEL_UTS}-dtbs.tar.gz ${username}@${ipaddress}:~/install ${NC}"
+		scp out/${KERNEL_UTS}.zImage out/config-${KERNEL_UTS} out/System.map-${KERNEL_UTS} out/${KERNEL_UTS}-modules.tar.gz out/${KERNEL_UTS}-dtbs.tar.gz out/uEnv.txt ${username}@${ipaddress}:~/install
 		;;
         esac
         shift

@@ -237,6 +237,14 @@ echo "";echo ""
 echo "${BRed}${BRedU}Step5: Install Kernel modules,dtb and zImage${NC}"
 echo ""
 echo "${Green}-----------------------------"
+echo "${Red}Clean previous images."
+echo "${Green}-----------------------------${NC}"
+if [ -d "out" ] ; then
+	rm -rf out
+	mkdir out
+fi
+echo ""
+echo "${Green}-----------------------------"
 echo "${Red}Install Kernel Modules."
 echo "${Green}-----------------------------${NC}"
 make_modules_pkg
@@ -257,11 +265,13 @@ KERNEL_UTS=$(cat "include/generated/utsrelease.h" | awk '{print $3}' | sed 's/\"
         if [ -f "out/${KERNEL_UTS}.${image}" ] ; then
                 rm -rf "out/${KERNEL_UTS}.${image}" || true
                 rm -rf "out/config-${KERNEL_UTS}" || true
+                rm -rf "out/System.map-${KERNEL_UTS}" || true
         fi
 
         if [ -f ./arch/arm/boot/${image} ] ; then
                 cp -v ./arch/arm/boot/${image} "out/${KERNEL_UTS}.${image}"
                 cp -v .config "out/config-${KERNEL_UTS}"
+                cp -v System.map "out/System.map-${KERNEL_UTS}"
         fi
 
         if [ ! -f "out/${KERNEL_UTS}.${image}" ] ; then
@@ -271,11 +281,12 @@ KERNEL_UTS=$(cat "include/generated/utsrelease.h" | awk '{print $3}' | sed 's/\"
                 ls -lh "out/${KERNEL_UTS}.${image}"
         fi
 
-
+	# Create uEnv.txt to boot currently built image
 	echo "${Purple} echo uname_r=${KERNEL_UTS} > uEnv.txt ${NC}"
 	echo uname_r=${KERNEL_UTS} > out/uEnv.txt
 	echo "${Purple} echo board_no=1 >> uEnv.txt${NC}"
 	echo board_no=1 >> out/uEnv.txt
+
 
 # parse commandline options
 while [ ! -z "$1" ] ; do
