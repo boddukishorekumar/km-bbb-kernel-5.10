@@ -286,6 +286,8 @@ KERNEL_UTS=$(cat "include/generated/utsrelease.h" | awk '{print $3}' | sed 's/\"
 	echo uname_r=${KERNEL_UTS} > out/uEnv.txt
 	echo "${Purple} echo board_no=1 >> uEnv.txt${NC}"
 	echo board_no=1 >> out/uEnv.txt
+	echo "${Purple} console=ttyS0,115200n8 >> uEnv.txt${NC}"
+	echo console=ttyS0,115200n8 >> out/uEnv.txt
 
 
 # parse commandline options
