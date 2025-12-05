@@ -2,7 +2,7 @@
 VERSION = 5
 PATCHLEVEL = 10
 SUBLEVEL = 168
-EXTRAVERSION =
+EXTRAVERSION = -Kernel-Masters
 NAME = Dare mighty things
 
 # *DOCUMENTATION*
