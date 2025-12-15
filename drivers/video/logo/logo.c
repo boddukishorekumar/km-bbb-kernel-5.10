@@ -104,6 +104,10 @@ const struct linux_logo * __ref fb_find_logo(int depth)
 		/* Generic Linux logo */
 		logo = &logo_beagle_clut224;
 #endif
+#ifdef CONFIG_LOGO_KM_BBB_CLUT224
+		/* Generic Linux logo */
+		logo = &logo_km_bbb_clut224;
+#endif
 	}
 	return logo;
 }
